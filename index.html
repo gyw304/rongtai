@@ -1,0 +1,210 @@
+<!--
+                            _ooOoo_
+                           o8888888o
+                           88" . "88
+                           (| -_- |)
+                            O\ = /O
+                        ____/`---'\____
+                      .   ' \\| |// `.
+                       / \\||| : |||// \
+                     / _||||| -:- |||||- \
+                       | | \\\ - /// | |
+                     | \_| ''\---/'' | |
+                      \ .-\__ `-` ___/-. /
+                   ___`. .' /--.--\ `. . __
+                ."" '< `.___\_<|>_/___.' >'"".
+               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+                 \ \ `-. \_ __\ /__ _/ .-` / /
+         ======`-.____`-.___\_____/___.-`____.-'======
+                            `=---='
+
+         .............................................
+                  佛祖保佑             永无BUG
+          佛曰:
+                  写字楼里写字间，写字间里程序员；
+                  程序人员写程序，又拿程序换酒钱。
+                  酒醒只在网上坐，酒醉还来网下眠；
+                  酒醉酒醒日复日，网上网下年复年。
+                  但愿老死电脑间，不愿鞠躬老板前；
+                  奔驰宝马贵者趣，公交自行程序员。
+                  别人笑我忒疯癫，我笑自己命太贱；
+                  不见满街漂亮妹，哪个归得程序员？
+-->
+<!doctype html>
+<html>
+<head>
+	<meta charset="GBK">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0">
+	<title>Phaser</title>
+    <style>
+        body { margin: 0; background-color: #fff}
+        body,html{width:100%;height: 100%;}
+        #form{
+            width:11.75rem;
+            height:5.75rem;
+            background-position: 0 0;
+            background-size: 11.75rem 5.75rem;
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-left:-5.875rem;
+            margin-top:-4.875rem;
+            background-image: url('assets/form.png');
+        }
+        #baomingPage{
+            width:100%;
+            height:100%;
+            background-image: url('assets/bg3.jpg');
+            background-size: 100% 100%;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            display: none;
+        }
+        #form .frm{
+            width:6rem;
+            height:2rem;
+            margin-bottom:.04rem;
+            margin-left:4.5rem
+        }
+        #form input{
+            border: none;
+            width:6rem;
+            height:.8rem;
+        }
+        #sub-btn{
+            width:3.725rem;
+            height:1.325rem;
+            background-image: url('assets/sub-btn.png');
+            background-size: 3.725rem 1.325rem;
+            margin:.5rem auto 0
+        }
+        .dashen{
+        	width:11.7rem;
+        	height:3.65rem;
+        	background-size: 11.7rem 3.65rem;
+        	background-image: url('assets/dashen.png');
+        	position: absolute;
+        	left:50%;
+        	margin-left:-5.85rem;
+        	top:-6rem;
+        }
+        .arc{
+            width:14.1rem;
+            height:2.15rem;
+            background-image: url('assets/arc.png');
+            background-size: 14.1rem 2.15rem;
+            margin:1rem auto 0;
+            position: relative;
+            left:-1rem
+        }
+        @-webkit-keyframes cc 
+		{
+		0%   {-webkit-transform:scale3d(1,1,1)}
+		100% {-webkit-transform:scale3d(.7,.7,.7)}
+		}
+        .cc{
+        	width:2.05rem;
+        	height:2.875rem;
+        	background-size: 2.05rem 2.875rem;
+        	background-image: url('assets/cc.png');
+        	position: absolute;
+        	left:50%;
+        	margin-left:-1.025rem;
+        	bottom:1rem;
+        	-webkit-animation: cc .7s linear 0 infinite alternate;
+        }
+        #c-warp{
+        	background-color: rgba(0,0,0,.7);
+        	position: absolute;
+        	left:0;
+        	top:0;
+        	right:0;
+        	bottom:0;
+        	display: none;
+        }
+        #aa{
+        	width:15.2rem;
+        	height:21.15rem;
+        	background-image: url('assets/aa.png');
+        	background-size: 15.2rem 21.15rem;
+        	position: absolute;
+        	left:50%;
+        	margin-left:-7.6rem;
+        	top:50%;
+        	margin-top:-10.575rem;
+        }
+    </style>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="phaser.min.js"></script>
+    <script src="Boot.js"></script>
+    <script src="Preloader.js"></script>
+    <script src="MainMenu.js"></script>
+    <script src="Game.js"></script>
+    <script src="leve1.js"></script>
+    <script src="leve2.js"></script>
+    <script src="leve3.js"></script>
+    <script src="leve4.js"></script>
+    
+</head>
+<body style="background-color: #000;">
+
+	<div id="baomingPage">
+        <div id="form">
+        	<div class='dashen'></div>
+            <div class="frm"><input type="text"/></div>
+            <div class="frm"><input type="text"/></div>
+            <div class="frm"><input type="text"/></div>
+            <div id="sub-btn"></div>
+            <div class="arc"></div>
+        </div>
+        <div class="cc" id='cc'></div>
+        <div id='c-warp'>
+        	<div id='aa'></div>
+        </div>
+    </div>
+
+<script>
+
+(function (doc, win) {
+        var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+        
+        document.getElementById('cc').addEventListener('touchstart',function(){
+        	document.getElementById('c-warp').style.display = 'block'
+        },false)
+        
+        document.getElementById('aa').addEventListener('touchstart',function(){
+        	document.getElementById('c-warp').style.display = 'none'
+        },false)
+        
+        
+    })(document, window);
+
+    (function() {
+        var game = new Phaser.Game(640, 1008, Phaser.CANVAS, 'game');
+        game.state.add('Boot', MyGame.Boot);
+        game.state.add('Preloader', MyGame.Preloader);
+        game.state.add('MainMenu', MyGame.MainMenu);
+        game.state.add('Game', MyGame.Game);
+        game.state.add('leve1', MyGame.leve1);
+        game.state.add('leve2', MyGame.leve2);
+        game.state.add('leve3', MyGame.leve3);
+        game.state.add('leve4', MyGame.leve4);
+        game.state.start('Boot');
+    })();
+</script>
+
+<script src="inpMusic.js"></script>
+</body>
+</html>
